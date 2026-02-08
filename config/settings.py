@@ -149,9 +149,13 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
-# Media files
+# Disable file uploads or use temporary storage
+DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
+
+# For free tier, disable media files or use cloud storage
+# Option 1: Disable media uploads
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = '/tmp/media/'  # Temporary directory
 
 # WhiteNoise configuration
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
