@@ -1,0 +1,315 @@
+{% extends "admin/base_site.html" %}
+{% load i18n static %}
+
+{% block extrastyle %}
+{{ block.super }}
+<style>
+.dashboard {
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    padding: 20px;
+    margin: 20px 0;
+}
+
+.dashboard-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin: 20px 0;
+}
+
+.dashboard-card {
+    background: white;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    border: 1px solid #e0e0e0;
+    transition: all 0.3s ease;
+}
+
+.dashboard-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+.card-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.card-header i {
+    font-size: 24px;
+    margin-right: 10px;
+    color: #3498db;
+}
+
+.card-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #2c3e50;
+    margin: 0;
+}
+
+.card-content {
+    font-size: 24px;
+    font-weight: 700;
+    color: #2c3e50;
+    margin: 10px 0;
+}
+
+.card-footer {
+    font-size: 14px;
+    color: #666;
+    margin-top: 10px;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    margin: 20px 0;
+}
+
+.stat-item {
+    background: linear-gradient(45deg, #f8f9fa, #e9ecef);
+    padding: 15px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.stat-number {
+    font-size: 28px;
+    font-weight: 700;
+    color: #2c3e50;
+    margin: 10px 0;
+}
+
+.stat-label {
+    font-size: 14px;
+    color: #666;
+}
+
+.quick-actions {
+    margin-top: 30px;
+}
+
+.actions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.action-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: white;
+    border: 2px solid #3498db;
+    border-radius: 10px;
+    padding: 20px 15px;
+    text-align: center;
+    text-decoration: none;
+    color: #3498db;
+    transition: all 0.3s ease;
+}
+
+.action-btn:hover {
+    background: #3498db;
+    color: white;
+    transform: translateY(-3px);
+}
+
+.action-btn i {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.action-label {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.recent-activity {
+    margin-top: 30px;
+}
+
+.activity-list {
+    list-style: none;
+    padding: 0;
+    margin: 15px 0;
+}
+
+.activity-item {
+    padding: 12px 15px;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    align-items: center;
+}
+
+.activity-item:last-child {
+    border-bottom: none;
+}
+
+.activity-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #f8f9fa;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 15px;
+}
+
+.activity-icon i {
+    color: #3498db;
+}
+
+.activity-content {
+    flex: 1;
+}
+
+.activity-title {
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.activity-time {
+    font-size: 12px;
+    color: #666;
+}
+</style>
+{% endblock %}
+
+{% block coltype %}colMS{% endblock %}
+
+{% block bodyclass %}{{ block.super }} dashboard{% endblock %}
+
+{% block breadcrumbs %}{% endblock %}
+
+{% block content %}
+<div id="content-main">
+    <div class="dashboard">
+        <h1>Admin Dashboard</h1>
+        <p class="quiet">Welcome to Work Shift Scheduler Admin Panel</p>
+        
+        <!-- Stats Overview -->
+        <div class="stats-grid">
+            <div class="stat-item">
+                <div class="stat-number">{{ total_employees }}</div>
+                <div class="stat-label">Total Employees</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">{{ pending_leaves }}</div>
+                <div class="stat-label">Pending Leaves</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">{{ today_schedules }}</div>
+                <div class="stat-label">Today's Schedules</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">{{ active_shifts }}</div>
+                <div class="stat-label">Active Shifts</div>
+            </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="quick-actions">
+            <h2>Quick Actions</h2>
+            <div class="actions-grid">
+                <a href="{% url 'admin:accounts_employee_add' %}" class="action-btn">
+                    <i class="fas fa-user-plus"></i>
+                    <span class="action-label">Add Employee</span>
+                </a>
+                <a href="{% url 'admin:scheduling_schedule_add' %}" class="action-btn">
+                    <i class="fas fa-calendar-plus"></i>
+                    <span class="action-label">Add Schedule</span>
+                </a>
+                <a href="{% url 'admin:leaves_leaverequest_changelist' %}?status__exact=pending" class="action-btn">
+                    <i class="fas fa-calendar-check"></i>
+                    <span class="action-label">Review Leaves</span>
+                </a>
+                <a href="{% url 'admin:scheduling_shift_add' %}" class="action-btn">
+                    <i class="fas fa-clock"></i>
+                    <span class="action-label">Add Shift</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- App Modules -->
+        {% if app_list %}
+        <div class="dashboard-container">
+            {% for app in app_list %}
+            <div class="dashboard-card">
+                <div class="card-header">
+                    <i class="fas 
+                        {% if app.name == 'Accounts' %}fa-users
+                        {% elif app.name == 'Scheduling' %}fa-calendar-alt
+                        {% elif app.name == 'Leaves' %}fa-calendar-check
+                        {% else %}fa-cog{% endif %}
+                    "></i>
+                    <h3 class="card-title">{{ app.name }}</h3>
+                </div>
+                <div class="card-content">
+                    {% for model in app.models %}
+                    <div style="margin: 10px 0;">
+                        {% if model.admin_url %}
+                        <a href="{{ model.admin_url }}" style="color: #3498db; text-decoration: none;">
+                            {{ model.name }}
+                        </a>
+                        {% else %}
+                        {{ model.name }}
+                        {% endif %}
+                        {% if model.add_url %}
+                        <a href="{{ model.add_url }}" style="float: right; color: #27ae60;">
+                            <i class="fas fa-plus"></i>
+                        </a>
+                        {% endif %}
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <p>{% trans "You don't have permission to view or edit anything." %}</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
+
+{% block sidebar %}
+<div id="content-related">
+    <div class="module" id="recent-actions-module">
+        <h2>Recent Actions</h2>
+        <h3>My Actions</h3>
+        {% load log %}
+        {% get_admin_log 10 as admin_log for_user user %}
+        {% if not admin_log %}
+        <p>None available</p>
+        {% else %}
+        <ul class="actionlist">
+            {% for entry in admin_log %}
+            <li class="{% if entry.is_addition %}addlink{% endif %}{% if entry.is_change %}changelink{% endif %}{% if entry.is_deletion %}deletelink{% endif %}">
+                {% if entry.is_deletion or not entry.get_admin_url %}
+                    {{ entry.object_repr }}
+                {% else %}
+                    <a href="{{ entry.get_admin_url }}">{{ entry.object_repr }}</a>
+                {% endif %}
+                <br>
+                {% if entry.content_type %}
+                    <span class="mini quiet">{% filter capfirst %}{{ entry.content_type.name }}{% endfilter %}</span>
+                {% else %}
+                    <span class="mini quiet">Unknown content</span>
+                {% endif %}
+            </li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

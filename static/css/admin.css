@@ -1,0 +1,864 @@
+/* Django Admin Optimized CSS - Fixed Contrast */
+:root {
+    --primary: #3498db;
+    --secondary: #2c3e50;
+    --success: #27ae60;
+    --warning: #f39c12;
+    --danger: #e74c3c;
+    --light: #f8f9fa;
+    --dark: #343a40;
+    --sidebar: #1a252f;
+    --sidebar-hover: #2c3e50;
+    --text-dark: #212529; /* Added for dark text */
+    --text-light: #f8f9fa; /* Added for light text */
+    --border: #dee2e6; /* Added for borders */
+}
+
+/* ===== ADMIN HEADER ===== */
+#header {
+    background: linear-gradient(135deg, var(--secondary), var(--sidebar)) !important;
+    color: var(--text-light) !important;
+    height: 60px !important;
+    border-bottom: 3px solid var(--primary) !important;
+}
+
+#branding h1 {
+    font-weight: 700 !important;
+    font-size: 1.5rem !important;
+    padding: 0 !important;
+    color: var(--text-light) !important;
+}
+
+#branding h1 a {
+    color: var(--text-light) !important;
+    text-decoration: none !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+}
+
+#branding h1 a:hover {
+    opacity: 0.9 !important;
+}
+
+#branding h1 a:before {
+    content: "📅" !important;
+    font-size: 1.3rem !important;
+}
+
+/* ===== BREADCRUMBS ===== */
+div.breadcrumbs {
+    background: linear-gradient(135deg, var(--primary), #2980b9) !important;
+    color: var(--text-light) !important;
+    padding: 15px 30px !important;
+    font-size: 14px !important;
+    border-bottom: 1px solid rgba(255,255,255,0.1) !important;
+}
+
+.breadcrumbs a {
+    color: rgba(255,255,255,0.9) !important;
+    text-decoration: none !important;
+    transition: all 0.3s ease !important;
+}
+
+.breadcrumbs a:hover {
+    color: var(--text-light) !important;
+    text-decoration: underline !important;
+}
+
+.breadcrumbs a:focus {
+    color: var(--text-light) !important;
+}
+
+/* ===== ADMIN SIDEBAR ===== */
+#content-related {
+    background: var(--sidebar) !important;
+    border: none !important;
+    border-radius: 10px !important;
+    margin-left: 20px !important;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1) !important;
+}
+
+#content-related .module {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+#content-related h2 {
+    color: var(--text-light) !important;
+    background: transparent !important;
+    border-bottom: 2px solid var(--primary) !important;
+    padding: 15px 20px !important;
+    margin: 0 !important;
+    font-size: 16px !important;
+    font-weight: 600 !important;
+}
+
+#content-related h3 {
+    color: rgba(255,255,255,0.9) !important;
+    background: transparent !important;
+    padding: 10px 20px !important;
+    margin: 0 !important;
+    font-size: 14px !important;
+    font-weight: 500 !important;
+}
+
+#content-related .actionlist {
+    padding: 0 20px 20px !important;
+}
+
+#content-related .actionlist li {
+    color: rgba(0, 0, 0, 0.7) !important;
+    padding: 8px 0 !important;
+    border-bottom: 1px solid rgba(255,255,255,0.1) !important;
+    font-size: 13px !important;
+}
+
+#content-related .actionlist li:last-child {
+    border-bottom: none !important;
+}
+
+#content-related .actionlist a {
+    color: var(--primary) !important;
+    text-decoration: none !important;
+}
+
+#content-related .actionlist a:hover {
+    color: var(--text-light) !important;
+    text-decoration: underline !important;
+}
+
+/* ===== MODULES AND CARDS ===== */
+.module {
+    background: white !important;
+    border: none !important;
+    border-radius: 15px !important;
+    overflow: hidden !important;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.08) !important;
+    margin-bottom: 25px !important;
+    transition: all 0.3s ease !important;
+}
+
+.module:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.12) !important;
+}
+
+.module h2, .module caption {
+    background: linear-gradient(135deg, var(--primary), #2980b9) !important;
+    color: var(--text-light) !important;
+    padding: 20px !important;
+    font-size: 16px !important;
+    font-weight: 600 !important;
+    border: none !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+}
+
+.module h2 a.section, .module caption a.section {
+    color: var(--text-light) !important;
+    text-decoration: none !important;
+}
+
+.module h2 a.section:hover, .module caption a.section:hover {
+    opacity: 0.9 !important;
+}
+
+.module table {
+    width: 100% !important;
+    border: none !important;
+    border-collapse: separate !important;
+    border-spacing: 0 !important;
+    color: var(--text-dark) !important; /* Fixed text color */
+}
+
+.module table th {
+    background: var(--light) !important;
+    color: var(--text-dark) !important; /* Fixed text color */
+    font-weight: 600 !important;
+    padding: 15px !important;
+    border: none !important;
+    border-bottom: 2px solid var(--primary) !important;
+}
+
+.module table td {
+    padding: 12px 15px !important;
+    border: none !important;
+    border-bottom: 1px solid #eee !important;
+    vertical-align: middle !important;
+    color: var(--text-dark) !important; /* Fixed text color */
+}
+
+.module table tbody tr {
+    transition: all 0.3s ease !important;
+}
+
+.module table tbody tr:hover {
+    background: rgba(52, 152, 219, 0.05) !important;
+    transform: scale(1.01) !important;
+}
+
+.module table a {
+    color: var(--primary) !important;
+}
+
+.module table a:hover {
+    color: var(--secondary) !important;
+    text-decoration: underline !important;
+}
+
+/* ===== BUTTONS ===== */
+.button, input[type=submit], input[type=button], .submit-row input, a.button {
+    background: linear-gradient(135deg, var(--primary), #2980b9) !important;
+    border: none !important;
+    border-radius: 8px !important;
+    padding: 12px 24px !important;
+    font-weight: 600 !important;
+    font-size: 14px !important;
+    color: var(--text-light) !important;
+    cursor: pointer !important;
+    transition: all 0.3s ease !important;
+    text-decoration: none !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 8px !important;
+    min-height: 44px !important;
+}
+
+.button:hover, input[type=submit]:hover, input[type=button]:hover,
+.submit-row input:hover, a.button:hover {
+    background: linear-gradient(135deg, #2980b9, #1f618d) !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3) !important;
+    color: var(--text-light) !important;
+    text-decoration: none !important;
+}
+
+.button:active, input[type=submit]:active, input[type=button]:active {
+    transform: translateY(0) !important;
+}
+
+.button.default, input[type=submit].default, .submit-row input.default {
+    background: linear-gradient(135deg, var(--success), #229954) !important;
+}
+
+.button.default:hover, input[type=submit].default:hover {
+    background: linear-gradient(135deg, #229954, #1e8449) !important;
+    box-shadow: 0 5px 15px rgba(39, 174, 96, 0.3) !important;
+}
+
+.button[href*="add"] {
+    background: linear-gradient(135deg, var(--success), #229954) !important;
+}
+
+.button[href*="add"]:hover {
+    background: linear-gradient(135deg, #229954, #1e8449) !important;
+}
+
+.deletelink {
+    background: linear-gradient(135deg, var(--danger), #c0392b) !important;
+}
+
+.deletelink:hover {
+    background: linear-gradient(135deg, #c0392b, #a93226) !important;
+    box-shadow: 0 5px 15px rgba(231, 76, 60, 0.3) !important;
+}
+
+/* ===== OBJECT TOOLS ===== */
+.object-tools {
+    margin: 0 !important;
+    padding: 20px !important;
+    background: transparent !important;
+}
+
+.object-tools a {
+    background: linear-gradient(135deg, var(--success), #229954) !important;
+    border: none !important;
+    border-radius: 8px !important;
+    padding: 10px 20px !important;
+    font-weight: 500 !important;
+    color: var(--text-light) !important;
+    transition: all 0.3s ease !important;
+    text-decoration: none !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+}
+
+.object-tools a:hover {
+    background: linear-gradient(135deg, #229954, #1e8449) !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 5px 15px rgba(39, 174, 96, 0.3) !important;
+    color: var(--text-light) !important;
+    text-decoration: none !important;
+}
+
+.object-tools a:before {
+    content: "+" !important;
+    font-weight: bold !important;
+    font-size: 16px !important;
+}
+
+/* ===== FORM STYLING ===== */
+fieldset {
+    border: 2px solid var(--border) !important;
+    border-radius: 10px !important;
+    padding: 25px !important;
+    margin-bottom: 25px !important;
+    background: white !important;
+    color: var(--text-dark) !important; /* Fixed text color */
+}
+
+fieldset.module {
+    background: white !important;
+}
+
+fieldset h2 {
+    background: linear-gradient(135deg, var(--primary), #2980b9) !important;
+    color: var(--text-light) !important;
+    border-radius: 8px 8px 0 0 !important;
+    margin: -25px -25px 25px !important;
+    padding: 20px !important;
+    font-size: 16px !important;
+    font-weight: 600 !important;
+}
+
+.form-row {
+    border-bottom: 1px solid var(--border) !important;
+    padding: 20px 0 !important;
+    margin: 0 !important;
+    display: flex !important;
+    align-items: flex-start !important;
+}
+
+.form-row:last-child {
+    border-bottom: none !important;
+}
+
+label {
+    font-weight: 600 !important;
+    color: var(--text-dark) !important;
+    margin-bottom: 8px !important;
+    display: block !important;
+}
+
+.required label:after {
+    content: " *" !important;
+    color: var(--danger) !important;
+}
+
+/* ===== FORM CONTROLS ===== */
+input[type=text], input[type=email], input[type=password],
+input[type=url], input[type=number], input[type=date],
+input[type=time], input[type=datetime-local], textarea, select {
+    border: 2px solid var(--border) !important;
+    border-radius: 8px !important;
+    padding: 12px 15px !important;
+    font-size: 14px !important;
+    transition: all 0.3s ease !important;
+    background: white !important;
+    color: var(--text-dark) !important; /* Fixed text color */
+    width: 100% !important;
+    max-width: 500px !important;
+}
+
+input[type=text]:focus, input[type=email]:focus,
+input[type=password]:focus, input[type=url]:focus,
+input[type=number]:focus, input[type=date]:focus,
+input[type=time]:focus, textarea:focus, select:focus {
+    border-color: var(--primary) !important;
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2) !important;
+    outline: none !important;
+}
+
+textarea {
+    min-height: 100px !important;
+    resize: vertical !important;
+}
+
+select {
+    appearance: none !important;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000px' width='16' height='16' fill='%23333' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E") !important;
+    background-repeat: no-repeat !important;
+    background-position: right 15px center !important;
+    background-size: 12px !important;
+    padding-right: 40px !important;
+    color: var(--text-dark) !important; /* Fixed text color */
+}
+
+/* ===== CHECKBOXES & RADIOS ===== */
+input[type=checkbox], input[type=radio] {
+    width: 18px !important;
+    height: 18px !important;
+    margin-right: 8px !important;
+    vertical-align: middle !important;
+}
+
+input[type=checkbox]:checked {
+    background-color: var(--primary) !important;
+    border-color: var(--primary) !important;
+}
+
+input[type=radio]:checked {
+    background-color: var(--primary) !important;
+    border-color: var(--primary) !important;
+}
+
+/* ===== HELP TEXT ===== */
+.help, p.help {
+    color: #000000 !important; /* Darker gray for better contrast */
+    font-size: 13px !important;
+    margin-top: 8px !important;
+    font-style: normal !important;
+}
+
+.help ul, p.help ul {
+    margin: 5px 0 5px 20px !important;
+}
+
+/* ===== MESSAGES ===== */
+ul.messagelist {
+    margin: 0 0 20px !important;
+    padding: 0 !important;
+    list-style: none !important;
+}
+
+ul.messagelist li {
+    background: linear-gradient(135deg, var(--success), #229954) !important;
+    color: var(--text-light) !important;
+    border: none !important;
+    border-radius: 10px !important;
+    padding: 15px 20px !important;
+    margin: 10px 0 !important;
+    font-weight: 500 !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 12px !important;
+    box-shadow: 0 4px 15px rgba(39, 174, 96, 0.2) !important;
+}
+
+ul.messagelist li:before {
+    content: "✓" !important;
+    font-weight: bold !important;
+}
+
+ul.messagelist li.warning {
+    background: linear-gradient(135deg, var(--warning), #d68910) !important;
+    box-shadow: 0 4px 15px rgba(243, 156, 18, 0.2) !important;
+}
+
+ul.messagelist li.warning:before {
+    content: "⚠" !important;
+}
+
+ul.messagelist li.error {
+    background: linear-gradient(135deg, var(--danger), #c0392b) !important;
+    box-shadow: 0 4px 15px rgba(231, 76, 60, 0.2) !important;
+}
+
+ul.messagelist li.error:before {
+    content: "✗" !important;
+}
+
+/* ===== ERROR NOTES ===== */
+.errornote {
+    background: linear-gradient(135deg, var(--danger), #c0392b) !important;
+    color: var(--text-light) !important;
+    border: none !important;
+    border-radius: 10px !important;
+    padding: 20px !important;
+    margin: 0 0 20px !important;
+    font-weight: 500 !important;
+    box-shadow: 0 4px 15px rgba(231, 76, 60, 0.2) !important;
+}
+
+.errornote:before {
+    content: "!" !important;
+    display: inline-block !important;
+    margin-right: 10px !important;
+    font-weight: bold !important;
+}
+
+/* ===== SUBMIT ROW ===== */
+.submit-row {
+    background: var(--light) !important;
+    border: none !important;
+    border-radius: 10px !important;
+    padding: 20px !important;
+    margin: 30px 0 !important;
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    gap: 15px !important;
+    color: var(--text-dark) !important; /* Fixed text color */
+}
+
+.submit-row input {
+    margin: 0 !important;
+}
+
+.submit-row p.deletelink-container {
+    margin: 0 !important;
+}
+
+/* ===== CALENDAR & CLOCK ===== */
+.calendar, .clockbox {
+    border: 2px solid var(--border) !important;
+    border-radius: 10px !important;
+    overflow: hidden !important;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.08) !important;
+}
+
+.calendar caption, .calendarbox h2 {
+    background: linear-gradient(135deg, var(--primary), #2980b9) !important;
+    color: var(--text-light) !important;
+    border: none !important;
+    padding: 15px !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+}
+
+.calendar td {
+    color: var(--text-dark) !important; /* Fixed text color */
+}
+
+.calendar td a {
+    color: var(--primary) !important;
+    text-decoration: none !important;
+    font-weight: 500 !important;
+}
+
+.calendar td a:hover {
+    color: var(--secondary) !important;
+    text-decoration: underline !important;
+}
+
+/* ===== SELECT2 ===== */
+.select2-container--admin .select2-selection--single,
+.select2-container--admin .select2-selection--multiple {
+    border: 2px solid var(--border) !important;
+    border-radius: 8px !important;
+    min-height: 46px !important;
+}
+
+.select2-container--admin .select2-selection--single {
+    height: 46px !important;
+}
+
+.select2-container--admin .select2-selection--single .select2-selection__rendered {
+    line-height: 42px !important;
+    padding-left: 15px !important;
+    color: var(--text-dark) !important; /* Fixed text color */
+}
+
+.select2-container--admin .select2-selection--multiple .select2-selection__choice {
+    background: var(--primary) !important;
+    color: var(--text-light) !important;
+    border: none !important;
+    border-radius: 5px !important;
+    padding: 5px 10px !important;
+    margin: 5px 5px 0 0 !important;
+}
+
+.select2-container--admin-autocomplete .select2-results__option--highlighted[aria-selected] {
+    background-color: var(--primary) !important;
+    color: var(--text-light) !important;
+}
+
+.select2-results__option {
+    color: var(--text-dark) !important; /* Fixed text color */
+}
+
+/* ===== FILTERS ===== */
+#changelist-filter {
+    background: var(--sidebar) !important;
+    border: none !important;
+    border-radius: 10px !important;
+    padding: 0 !important;
+    margin-left: 20px !important;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1) !important;
+}
+
+#changelist-filter h2 {
+    color: var(--text-light) !important;
+    background: transparent !important;
+    border-bottom: 2px solid var(--primary) !important;
+    padding: 15px 20px !important;
+    margin: 0 !important;
+    font-size: 16px !important;
+    font-weight: 600 !important;
+}
+
+#changelist-filter h3 {
+    color: rgba(255,255,255,0.9) !important;
+    background: transparent !important;
+    padding: 10px 20px !important;
+    margin: 0 !important;
+    font-size: 14px !important;
+    font-weight: 500 !important;
+}
+
+#changelist-filter ul {
+    padding: 0 20px 20px !important;
+    margin: 0 !important;
+}
+
+#changelist-filter li {
+    list-style: none !important;
+    margin: 5px 0 !important;
+}
+
+#changelist-filter li.selected {
+    border-left: 3px solid var(--primary) !important;
+    padding-left: 17px !important;
+    margin-left: -20px !important;
+}
+
+#changelist-filter li.selected a {
+    color: var(--primary) !important;
+    font-weight: 600 !important;
+}
+
+#changelist-filter a {
+    color: rgba(0, 0, 0, 0.7) !important;
+    text-decoration: none !important;
+    padding: 5px 0 !important;
+    display: block !important;
+    transition: all 0.3s ease !important;
+}
+
+#changelist-filter a:hover {
+    color: var(--text-light) !important;
+    padding-left: 5px !important;
+}
+
+/* ===== PAGINATION ===== */
+.paginator {
+    background: var(--light) !important;
+    border: none !important;
+    border-radius: 10px !important;
+    padding: 15px 20px !important;
+    margin: 20px 0 !important;
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    color: var(--text-dark) !important; /* Fixed text color */
+}
+
+.paginator a:link, .paginator a:visited {
+    background: var(--primary) !important;
+    color: var(--text-light) !important;
+    border: none !important;
+    border-radius: 5px !important;
+    padding: 8px 15px !important;
+    text-decoration: none !important;
+    transition: all 0.3s ease !important;
+}
+
+.paginator a:hover {
+    background: #2980b9 !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 3px 10px rgba(52, 152, 219, 0.3) !important;
+}
+
+.paginator .this-page {
+    background: var(--secondary) !important;
+    color: var(--text-light) !important;
+    border: none !important;
+    border-radius: 5px !important;
+    padding: 8px 15px !important;
+    font-weight: 600 !important;
+}
+
+.paginator .this-page a {
+    color: var(--text-light) !important;
+}
+
+/* ===== SEARCH ===== */
+#toolbar {
+    background: var(--light) !important;
+    border: none !important;
+    border-radius: 10px !important;
+    padding: 15px 20px !important;
+    margin: 0 0 20px !important;
+    color: var(--text-dark) !important; /* Fixed text color */
+}
+
+#toolbar form input[type=text] {
+    margin-right: 10px !important;
+}
+
+#toolbar form input[type=submit] {
+    padding: 10px 20px !important;
+}
+
+/* ===== BADGES ===== */
+.badge {
+    display: inline-block !important;
+    padding: 4px 10px !important;
+    border-radius: 20px !important;
+    font-size: 12px !important;
+    font-weight: 600 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+}
+
+.badge.bg-success {
+    background: var(--success) !important;
+    color: var(--text-light) !important;
+}
+
+.badge.bg-warning {
+    background: var(--warning) !important;
+    color: var(--text-light) !important;
+}
+
+.badge.bg-danger {
+    background: var(--danger) !important;
+    color: var(--text-light) !important;
+}
+
+.badge.bg-info {
+    background: var(--primary) !important;
+    color: var(--text-light) !important;
+}
+
+.badge.bg-secondary {
+    background: #000000 !important;
+    color: var(--text-light) !important;
+}
+
+/* ===== INLINE FORMS ===== */
+.inline-group {
+    border: 2px solid var(--border) !important;
+    border-radius: 10px !important;
+    overflow: hidden !important;
+    margin-bottom: 25px !important;
+}
+
+.inline-group h2 {
+    background: linear-gradient(135deg, var(--primary), #2980b9) !important;
+    color: var(--text-light) !important;
+    margin: 0 !important;
+    padding: 15px 20px !important;
+    font-size: 16px !important;
+    font-weight: 600 !important;
+}
+
+.inline-related h3 {
+    background: var(--light) !important;
+    color: var(--text-dark) !important;
+    margin: 0 !important;
+    padding: 15px 20px !important;
+    border-bottom: 1px solid var(--border) !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+}
+
+.inline-related table {
+    color: var(--text-dark) !important; /* Fixed text color */
+}
+
+/* ===== DASHBOARD STYLING ===== */
+.dashboard .module table th {
+    width: 100% !important;
+}
+
+.dashboard #content-related {
+    margin-left: 0 !important;
+}
+
+/* ===== SPECIFIC TEXT COLOR FIXES ===== */
+/* Fix for all text inside white backgrounds */
+body, p, span, div, li, td, th, a:not(.button, .deletelink, .object-tools a, .paginator a) {
+    color: var(--text-dark) !important;
+}
+
+/* Fix for links in tables */
+td a, th a {
+    color: var(--primary) !important;
+}
+
+td a:hover, th a:hover {
+    color: var(--secondary) !important;
+}
+
+/* Fix for form descriptions */
+.description {
+    color: #000000 !important;
+}
+
+/* Fix for help text in forms */
+.vTextField, .vLargeTextField, .vURLField {
+    color: var(--text-dark) !important;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+    #header {
+        padding: 0 15px !important;
+    }
+    
+    div.breadcrumbs {
+        padding: 10px 15px !important;
+    }
+    
+    .module {
+        margin: 10px !important;
+    }
+    
+    .form-row {
+        flex-direction: column !important;
+    }
+    
+    .submit-row {
+        flex-direction: column !important;
+        align-items: stretch !important;
+    }
+    
+    .submit-row input {
+        width: 100% !important;
+        margin-bottom: 10px !important;
+    }
+    
+    #content-related, #changelist-filter {
+        margin-left: 0 !important;
+        margin-top: 20px !important;
+    }
+}
+
+/* ===== ADDITIONAL FIXES FOR SPECIFIC ELEMENTS ===== */
+/* Fix for time/date widget text */
+.timelist a, .calendar td a {
+    color: var(--primary) !important;
+}
+
+.timelist a:hover, .calendar td a:hover {
+    color: var(--secondary) !important;
+}
+
+/* Fix for related widget wrapper */
+.related-widget-wrapper {
+    color: var(--text-dark) !important;
+}
+
+/* Fix for help icons */
+.help-tooltip, .help-icon {
+    color: #000000 !important;
+}
+
+/* Fix for readonly fields */
+.readonly {
+    color: var(--text-dark) !important;
+    background-color: #f8f9fa !important;
+    padding: 8px 12px !important;
+    border-radius: 4px !important;
+    border: 1px solid var(--border) !important;
+}
+
+/* Fix for field boxes */
+.fieldBox {
+    color: var(--text-dark) !important;
+}

@@ -1,0 +1,11 @@
+# Production requirements
+Django==6.0.1
+gunicorn==21.2.0
+whitenoise==6.5.0
+psycopg2-binary==2.9.9
+dj-database-url==2.0.0
+python-dotenv==1.0.0
+Pillow==10.1.0
+
+# Development (optional, for local)
+django-debug-toolbar==4.2.0python-dotenv==1.0.0

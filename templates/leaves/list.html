@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+{% block title %}My Leave Requests - Work Shift Scheduler{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="h3 mb-0">My Leave Requests</h1>
+    <a href="{% url 'create_leave' %}" class="btn btn-primary">
+        <i class="fas fa-calendar-plus me-2"></i> New Request
+    </a>
+</div>
+
+<!-- Stats Cards -->
+<div class="row mb-4">
+    <div class="col-md-3 col-6">
+        <div class="stats-card" style="background: linear-gradient(45deg, #f39c12, #d68910); color: white;">
+            <i class="fas fa-clock"></i>
+            <div class="number">{{ pending_count }}</div>
+            <div class="label">Pending</div>
+        </div>
+    </div>
+    
+    <div class="col-md-3 col-6">
+        <div class="stats-card" style="background: linear-gradient(45deg, #27ae60, #229954); color: white;">
+            <i class="fas fa-check-circle"></i>
+            <div class="number">{{ approved_count }}</div>
+            <div class="label">Approved</div>
+        </div>
+    </div>
+    
+    <div class="col-md-3 col-6">
+        <div class="stats-card" style="background: linear-gradient(45deg, #e74c3c, #c0392b); color: white;">
+            <i class="fas fa-times-circle"></i>
+            <div class="number">{{ rejected_count }}</div>
+            <div class="label">Rejected</div>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-header">
+        <h5 class="mb-0">All Leave Requests</h5>
+    </div>
+    <div class="card-body">
+        {% if leaves %}
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Type</th>
+                        <th>Dates</th>
+                        <th>Duration</th>
+                        <th>Reason</th>
+                        <th>Status</th>
+                        <th>Submitted</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for leave in leaves %}
+                    <tr>
+                        <td>{{ leave.get_leave_type_display }}</td>
+                        <td>
+                            {{ leave.start_date|date:"M d, Y" }}<br>
+                            <small class="text-muted">to</small><br>
+                            {{ leave.end_date|date:"M d, Y" }}
+                        </td>
+                        <td>{{ leave.duration }} day{{ leave.duration|pluralize }}</td>
+                        <td>{{ leave.reason|truncatewords:10 }}</td>
+                        <td>
+                            {% if leave.status == 'approved' %}
+                            <span class="badge bg-success">Approved</span>
+                            {% elif leave.status == 'rejected' %}
+                            <span class="badge bg-danger">Rejected</span>
+                            {% else %}
+                            <span class="badge bg-warning">Pending</span>
+                            {% endif %}
+                        </td>
+                        <td>{{ leave.created_at|date:"M d, Y" }}</td>
+                        <td>
+                            {% if leave.status == 'pending' %}
+                            <form method="post" action="{% url 'cancel_leave' leave.pk %}" style="display: inline;">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-sm btn-danger" 
+                                        onclick="return confirm('Are you sure you want to cancel this leave request?');">
+                                    <i class="fas fa-times"></i> Cancel
+                                </button>
+                            </form>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <div class="text-center py-5">
+            <i class="fas fa-inbox fa-4x text-muted mb-4"></i>
+            <h4>No Leave Requests</h4>
+            <p class="text-muted mb-4">You haven't submitted any leave requests yet.</p>
+            <a href="{% url 'create_leave' %}" class="btn btn-primary btn-lg">
+                <i class="fas fa-calendar-plus me-2"></i> Submit Your First Request
+            </a>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

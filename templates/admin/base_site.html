@@ -1,0 +1,110 @@
+{% extends "admin/base.html" %}
+
+{% block title %}{{ title }} | Work Shift Scheduler Admin{% endblock %}
+
+{% block branding %}
+<h1 id="site-name">
+    <a href="{% url 'admin:index' %}">
+        <i class="fas fa-calendar-alt"></i> Work Shift Scheduler Admin
+    </a>
+</h1>
+{% endblock %}
+
+{% block nav-global %}{% endblock %}
+
+{% block extrastyle %}
+{{ block.super }}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<link rel="stylesheet" href="/static/css/admin.css">
+<style>
+/* Additional inline styles */
+#user-tools {
+    font-size: 14px;
+    font-weight: 500;
+}
+
+#user-tools a:link, #user-tools a:visited {
+    color: white;
+    border-bottom: 1px solid rgba(255,255,255,0.3);
+    text-decoration: none;
+}
+
+#user-tools a:hover {
+    color: white;
+    border-bottom-color: white;
+}
+
+/* Improve dashboard */
+.dashboard .module table td {
+    white-space: nowrap;
+}
+
+/* Better form alignment */
+.aligned label {
+    width: 160px;
+    padding: 8px 0;
+}
+
+.aligned .form-row input, .aligned .form-row select, .aligned .form-row textarea {
+    margin-left: 170px;
+    width: calc(100% - 170px);
+    max-width: none;
+}
+
+/* Fix for vCheckboxWrapper */
+.vCheckboxLabel {
+    margin-left: 5px;
+    vertical-align: middle;
+}
+
+/* Improve date/time widgets */
+.vDateField, .vTimeField {
+    width: 150px !important;
+}
+
+/* Better inline delete buttons */
+.inline-deletelink {
+    background: linear-gradient(135deg, #e74c3c, #c0392b) !important;
+    border: none !important;
+    border-radius: 5px !important;
+    padding: 5px 10px !important;
+    color: white !important;
+    text-decoration: none !important;
+    font-size: 12px !important;
+    font-weight: 500 !important;
+}
+
+.inline-deletelink:hover {
+    background: linear-gradient(135deg, #c0392b, #a93226) !important;
+    color: white !important;
+}
+</style>
+{% endblock %}
+
+{% block extrahead %}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function() {
+    // Add icons to action buttons
+    $('.deletelink').prepend('<i class="fas fa-trash"></i> ');
+    $('a.addlink').prepend('<i class="fas fa-plus"></i> ');
+    $('a[href*="change"]').prepend('<i class="fas fa-edit"></i> ');
+    $('a[href*="history"]').prepend('<i class="fas fa-history"></i> ');
+    
+    // Improve date pickers
+    $('.vDateField').attr('placeholder', 'YYYY-MM-DD');
+    $('.vTimeField').attr('placeholder', 'HH:MM:SS');
+    
+    // Add tooltips
+    $('[title]').tooltip();
+    
+    // Auto-focus first field
+    $('form:not(.no-auto-focus) :input:visible:enabled:first').focus();
+    
+    // Confirm delete actions
+    $('.deletelink').on('click', function() {
+        return confirm('Are you sure you want to delete this item?');
+    });
+});
+</script>
+{% endblock %}

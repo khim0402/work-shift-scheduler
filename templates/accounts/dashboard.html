@@ -1,0 +1,172 @@
+{% extends 'base.html' %}
+{% block title %}Dashboard - Work Shift Scheduler{% endblock %}
+
+{% block content %}
+<div class="dashboard-header mb-4">
+    <h1 class="h3 mb-2">Welcome, {{ user.get_full_name|default:user.username }}!</h1>
+    <p class="text-muted mb-0">Your dashboard overview</p>
+    
+    {% if is_employee_session %}
+    <div class="alert alert-info mt-3 mb-0">
+        <i class="fas fa-info-circle me-2"></i> 
+        <strong>Note:</strong> You are logged in as an employee (Admin session is also active)
+    </div>
+    {% endif %}
+</div>
+
+<!-- Stats Cards -->
+<div class="row mb-4">
+    <div class="col-md-3 col-6">
+        <div class="stats-card" style="background: linear-gradient(45deg, #3498db, #2980b9); color: white;">
+            <i class="fas fa-calendar-day"></i>
+            <div class="number">{% if todays_shift %}1{% else %}0{% endif %}</div>
+            <div class="label">Today's Shift</div>
+        </div>
+    </div>
+    
+    <div class="col-md-3 col-6">
+        <div class="stats-card" style="background: linear-gradient(45deg, #27ae60, #229954); color: white;">
+            <i class="fas fa-clock"></i>
+            <div class="number">{{ schedule|length }}</div>
+            <div class="label">This Week's Shifts</div>
+        </div>
+    </div>
+    
+    <div class="col-md-3 col-6">
+        <div class="stats-card" style="background: linear-gradient(45deg, #f39c12, #d68910); color: white;">
+            <i class="fas fa-calendar-check"></i>
+            <div class="number">{{ pending_leaves }}</div>
+            <div class="label">Pending Leaves</div>
+        </div>
+    </div>
+    
+    <div class="col-md-3 col-6">
+        <div class="stats-card" style="background: linear-gradient(45deg, #2c3e50, #1a252f); color: white;">
+            <i class="fas fa-user-tie"></i>
+            <div class="label">Your Role</div>
+            <div class="number">{{ user.get_role_display }}</div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-8 mb-4">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h5 class="mb-0"><i class="fas fa-calendar-week me-2"></i>This Week's Schedule</h5>
+                <a href="{% url 'schedule' %}" class="btn btn-sm btn-outline-primary">View All</a>
+            </div>
+            <div class="card-body">
+                <div class="alert alert-info mb-3">
+                    <i class="fas fa-info-circle me-2"></i>
+                    Week of {{ week_start|date:"F d" }} - {{ week_end|date:"F d, Y" }}
+                </div>
+                
+                {% if schedule %}
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Day</th>
+                                <th>Shift</th>
+                                <th>Time</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for item in schedule %}
+                            <tr class="{% if item.date == today %}table-success{% endif %}">
+                                <td>{{ item.date|date:"M d" }}</td>
+                                <td>{{ item.date|date:"D" }}</td>
+                                <td>{{ item.shift.name }}</td>
+                                <td>{{ item.shift.start_time|time:"g:i A" }} - {{ item.shift.end_time|time:"g:i A" }}</td>
+                                <td>
+                                    {% if item.date < today %}
+                                    <span class="badge bg-secondary">Completed</span>
+                                    {% elif item.date == today %}
+                                    <span class="badge bg-success">Today</span>
+                                    {% else %}
+                                    <span class="badge bg-primary">Upcoming</span>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                {% else %}
+                <div class="text-center py-4 text-muted">
+                    <i class="fas fa-calendar-times fa-3x mb-3"></i>
+                    <h5>No Schedule Assigned</h5>
+                    <p class="mb-0">You don't have any shifts scheduled for this week.</p>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-lg-4">
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5 class="mb-0"><i class="fas fa-calendar-alt me-2"></i>Recent Leave Requests</h5>
+            </div>
+            <div class="card-body">
+                {% if leave_requests %}
+                <div class="list-group list-group-flush">
+                    {% for leave in leave_requests %}
+                    <div class="list-group-item border-0 px-0 py-3">
+                        <div class="d-flex justify-content-between align-items-start mb-1">
+                            <h6 class="mb-0">{{ leave.get_leave_type_display }}</h6>
+                            <span class="badge bg-{% if leave.status == 'approved' %}success{% elif leave.status == 'rejected' %}danger{% else %}warning{% endif %}">
+                                {{ leave.get_status_display }}
+                            </span>
+                        </div>
+                        <div class="text-muted small mb-2">
+                            <i class="fas fa-calendar-alt me-1"></i>
+                            {{ leave.start_date|date:"M d" }} - {{ leave.end_date|date:"M d" }}
+                        </div>
+                        <p class="mb-0 small text-truncate">{{ leave.reason }}</p>
+                        <small class="text-muted">{{ leave.created_at|timesince }} ago</small>
+                    </div>
+                    {% endfor %}
+                </div>
+                <div class="text-center mt-3">
+                    <a href="{% url 'leave_list' %}" class="btn btn-sm btn-outline-primary">
+                        View All Leaves
+                    </a>
+                </div>
+                {% else %}
+                <div class="text-center py-4 text-muted">
+                    <i class="fas fa-inbox fa-3x mb-3"></i>
+                    <h5>No Leave Requests</h5>
+                    <p class="mb-0">You haven't submitted any leave requests yet.</p>
+                    <a href="{% url 'create_leave' %}" class="btn btn-primary mt-3">
+                        Request Leave
+                    </a>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0"><i class="fas fa-bolt me-2"></i>Quick Actions</h5>
+            </div>
+            <div class="card-body">
+                <div class="d-grid gap-2">
+                    <a href="{% url 'create_leave' %}" class="btn btn-primary">
+                        <i class="fas fa-calendar-plus me-2"></i> Request Leave
+                    </a>
+                    <a href="{% url 'schedule' %}" class="btn btn-outline-primary">
+                        <i class="fas fa-calendar-week me-2"></i> View Full Schedule
+                    </a>
+                    <a href="{% url 'profile' %}" class="btn btn-outline-secondary">
+                        <i class="fas fa-user-edit me-2"></i> Edit Profile
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

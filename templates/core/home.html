@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% block title %}Home - Work Shift Scheduler{% endblock %}
+
+{% block content %}
+<div class="text-center py-5">
+    <h1 class="display-4 mb-4">Welcome to Work Shift Scheduler</h1>
+    <p class="lead mb-5">Efficiently manage employee schedules and leave requests</p>
+    
+    {% if not user.is_authenticated %}
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-body p-5">
+                    <h3 class="mb-4">Get Started</h3>
+                    <p class="mb-4">Register as an employee to access your schedule and request leaves.</p>
+                    <div class="d-grid gap-3 d-md-block">
+                        <a href="{% url 'register' %}" class="btn btn-primary btn-lg px-5 me-3">
+                            <i class="fas fa-user-plus me-2"></i> Register Now
+                        </a>
+                        <a href="{% url 'login' %}" class="btn btn-outline-primary btn-lg px-5">
+                            <i class="fas fa-sign-in-alt me-2"></i> Login
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% else %}
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-body p-5">
+                    <h3 class="mb-4">Welcome back, {{ user.username }}!</h3>
+                    <p class="mb-4">You are logged in as a {{ user.get_role_display|lower }}.</p>
+                    <div class="d-grid gap-3 d-md-block">
+                        <a href="{% url 'dashboard' %}" class="btn btn-primary btn-lg px-5 me-3">
+                            <i class="fas fa-tachometer-alt me-2"></i> Go to Dashboard
+                        </a>
+                        <a href="{% url 'schedule' %}" class="btn btn-outline-primary btn-lg px-5">
+                            <i class="fas fa-calendar-alt me-2"></i> View Schedule
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
