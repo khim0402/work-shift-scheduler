@@ -240,3 +240,46 @@ LOGGING = {
 # File upload settings
 FILE_UPLOAD_MAX_MEMORY_SIZE = 5242880  # 5MB
 DATA_UPLOAD_MAX_MEMORY_SIZE = 5242880  # 5MB
+
+# ===== PYTHONANYWHERE DETECTION =====
+# Automatically detect PythonAnywhere and adjust settings
+import sys
+
+def is_pythonanywhere():
+    """Check if running on PythonAnywhere"""
+    return 'pythonanywhere' in os.environ.get('HOME', '')
+
+if is_pythonanywhere():
+    print("✓ Running on PythonAnywhere - Adjusting settings...")
+    
+    # 1. Add PythonAnywhere domain to allowed hosts
+    PYTHONANYWHERE_DOMAIN = 'khim0402.pythonanywhere.com'  # CHANGE THIS
+    if PYTHONANYWHERE_DOMAIN not in ALLOWED_HOSTS:
+        ALLOWED_HOSTS.append(PYTHONANYWHERE_DOMAIN)
+        ALLOWED_HOSTS.append(f'www.{PYTHONANYWHERE_DOMAIN}')
+    
+    # 2. Use Render PostgreSQL if available, otherwise keep current
+    RENDER_DB_URL = os.environ.get('RENDER_DB_URL')  # Will set on PythonAnywhere
+    
+    if RENDER_DB_URL:
+        # Override with Render PostgreSQL
+        DATABASES = {
+            'default': dj_database_url.config(
+                default=RENDER_DB_URL,
+                conn_max_age=600,
+                ssl_require=True
+            )
+        }
+        print(f"✓ Using Render PostgreSQL: {RENDER_DB_URL.split('@')[1] if '@' in RENDER_DB_URL else 'Connected'}")
+    
+    # 3. Adjust static/media paths for PythonAnywhere
+    STATIC_ROOT = '/home/khim0402/work_shift_scheduler/staticfiles'  # CHANGE USERNAME
+    MEDIA_ROOT = '/home/khim0402/work_shift_scheduler/media'  # CHANGE USERNAME
+    
+    # 4. PythonAnywhere handles SSL at proxy
+    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+    
+    # 5. Disable debug mode
+    DEBUG = False
+    
+    print("✓ PythonAnywhere settings applied successfully")
