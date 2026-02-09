@@ -30,7 +30,7 @@ DEBUG = os.environ.get('DEBUG', 'False') == 'True'  # CHANGED
 RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
 
 # Localhost for development
-ALLOWED_HOSTS = ['localhost', '127.0.0.1']  # CHANGED
+ALLOWED_HOSTS = ['khim0402.pythonanywhere.com', 'localhost', '127.0.0.1']  # CHANGED
 
 # Add Render hostname if available
 if RENDER_EXTERNAL_HOSTNAME:
