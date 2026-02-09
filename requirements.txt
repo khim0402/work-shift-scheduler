@@ -1,5 +1,5 @@
 # Production requirements
-Django==6.0.1
+Django==5.2.11  # Latest Django 5.x version for Python 3.8-3.12
 gunicorn==21.2.0
 whitenoise==6.5.0
 psycopg2-binary==2.9.9
@@ -9,4 +9,3 @@ Pillow==10.1.0
 
 # Development (optional, for local)
 django-debug-toolbar==4.2.0
-# python-dotenv is already in production requirements above
